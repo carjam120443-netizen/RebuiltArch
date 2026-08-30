@@ -2,8 +2,12 @@
 
 set -euo pipefail
 
-SCRIPT_DIR="$(cd -- "$(dirname -- "${BASH_SOURCE[0]}")" && pwd)"
-PROFILE_DIR="$SCRIPT_DIR/profile"
+# Always build from the repository root so local and GitHub Actions builds
+# use the same paths.
+cd -- "$(dirname -- "$0")"
+
+PROFILE_DIR="$(pwd)/profile"
+OUTPUT_DIR="$(pwd)/out"
 
 if [[ $EUID -ne 0 ]]; then
     echo "Run this script as root (for example: sudo ./build.sh)."
@@ -15,7 +19,11 @@ if ! command -v mkarchiso >/dev/null 2>&1; then
     exit 1
 fi
 
-OUTPUT_DIR="$SCRIPT_DIR/out"
+if [[ ! -f "$PROFILE_DIR/profiledef.sh" ]]; then
+    echo "Archiso profile not found: $PROFILE_DIR/profiledef.sh"
+    exit 1
+fi
+
 mkdir -p "$OUTPUT_DIR"
 
 mkarchiso -v -o "$OUTPUT_DIR" "$PROFILE_DIR"

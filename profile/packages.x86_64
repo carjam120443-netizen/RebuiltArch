@@ -27,3 +27,9 @@ arch-install-scripts
 syslinux
 mtools
 dosfstools
+plasma-desktop
+plasma-workspace
+sddm
+konsole
+dolphin
+xdg-utils

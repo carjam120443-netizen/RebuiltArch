@@ -5,6 +5,9 @@ on:
     branches: [main]
   workflow_dispatch:
 
+permissions:
+  contents: write
+
 jobs:
   build:
     runs-on: ubuntu-latest
@@ -54,7 +57,7 @@ jobs:
         run: |
           ISO="$(find ./out -maxdepth 1 -type f -name '*.iso' -print -quit)"
           test -n "$ISO"
-          if gh release view nightly >/dev/null 2>&1; then
+          if gh release view nightly --repo "$GITHUB_REPOSITORY" >/dev/null 2>&1; then
             gh release upload nightly "$ISO" --clobber --repo "$GITHUB_REPOSITORY"
           else
             gh release create nightly "$ISO" --prerelease --title "RebuiltArch Nightly" --notes "Latest automatically built RebuiltArch ISO." --repo "$GITHUB_REPOSITORY"

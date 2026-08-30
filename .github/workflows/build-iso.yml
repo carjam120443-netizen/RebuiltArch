@@ -8,7 +8,9 @@ on:
 jobs:
   build:
     runs-on: ubuntu-latest
-    container: archlinux:latest
+    container:
+      image: archlinux:latest
+      options: --privileged
 
     steps:
       - name: Checkout
@@ -25,12 +27,17 @@ jobs:
           ls -la
           test -f build.sh
           test -f profile/profiledef.sh
+          test -f profile/packages.x86_64
 
       - name: Build ISO
         shell: bash
         run: |
           chmod +x ./build.sh
           ./build.sh
+
+      - name: Verify ISO
+        run: |
+          ls -lh ./out/*.iso
 
       - name: Upload ISO
         uses: actions/upload-artifact@v4

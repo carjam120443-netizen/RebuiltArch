@@ -1,7 +1,11 @@
 # RebuiltArch live environment packages
 base
 linux
-linux-firmware
+# Keep only commonly useful firmware to keep the live ISO below GitHub's 2 GiB release limit.
+linux-firmware-amdgpu
+linux-firmware-nvidia
+linux-firmware-intel
+linux-firmware-realtek
 amd-ucode
 mkinitcpio
 mkinitcpio-archiso
@@ -22,6 +26,7 @@ htop
 fastfetch
 zsh
 bash
+make
 archinstall
 arch-install-scripts
 syslinux

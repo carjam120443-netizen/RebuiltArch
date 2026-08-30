@@ -19,7 +19,7 @@ jobs:
       - name: Update system and install build tools
         run: |
           pacman -Syu --noconfirm
-          pacman -S --noconfirm archiso git
+          pacman -S --noconfirm archiso git github-cli
 
       - name: Verify workspace
         run: |
@@ -39,10 +39,23 @@ jobs:
         run: |
           ls -lh ./out/*.iso
 
-      - name: Upload ISO
+      - name: Upload ISO artifact
         uses: actions/upload-artifact@v4
         with:
           name: rebuiltarch-iso
           path: out/*.iso
           if-no-files-found: error
           retention-days: 7
+
+      - name: Publish ISO as GitHub release asset
+        env:
+          GH_TOKEN: ${{ github.token }}
+        shell: bash
+        run: |
+          ISO="$(find ./out -maxdepth 1 -type f -name '*.iso' -print -quit)"
+          test -n "$ISO"
+          if gh release view nightly >/dev/null 2>&1; then
+            gh release upload nightly "$ISO" --clobber --repo "$GITHUB_REPOSITORY"
+          else
+            gh release create nightly "$ISO" --prerelease --title "RebuiltArch Nightly" --notes "Latest automatically built RebuiltArch ISO." --repo "$GITHUB_REPOSITORY"
+          fi

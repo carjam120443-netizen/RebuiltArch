@@ -1,0 +1,16 @@
+#!/usr/bin/env bash
+
+logo_file="/usr/share/rebuiltarch/logo.txt"
+
+if [[ -f "$logo_file" ]]; then
+    cat "$logo_file"
+else
+    printf '%s\n' 'RebuiltArch'
+fi
+
+printf '\n'
+printf 'OS: RebuiltArch\n'
+printf 'Base: Arch Linux\n'
+printf 'Kernel: %s\n' "$(uname -r)"
+printf 'Shell: %s\n' "${SHELL##*/}"
+printf 'Uptime: %s\n' "$(uptime -p 2>/dev/null || printf 'unknown')"

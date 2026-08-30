@@ -1,0 +1,10 @@
+[Unit]
+Description=Display Manager
+After=systemd-user-sessions.service
+
+[Service]
+ExecStart=/usr/bin/sddm
+Restart=always
+
+[Install]
+Alias=display-manager.service

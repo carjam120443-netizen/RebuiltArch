@@ -45,3 +45,4 @@ jobs:
           name: rebuiltarch-iso
           path: out/*.iso
           if-no-files-found: error
+          retention-days: 7

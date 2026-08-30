@@ -1,0 +1,26 @@
+# RebuiltArch live environment packages
+base
+linux
+linux-firmware
+amd-ucode
+mkinitcpio
+mkinitcpio-archiso
+networkmanager
+sudo
+nano
+vim
+less
+man-db
+man-pages
+git
+curl
+wget
+openssh
+usbutils
+pciutils
+htop
+fastfetch
+zsh
+bash
+archinstall
+arch-install-scripts

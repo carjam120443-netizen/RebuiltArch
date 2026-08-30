@@ -1,13 +1,15 @@
 #!/usr/bin/env bash
-
 set -euo pipefail
 
-# Always build from the repository root so local and GitHub Actions builds
-# use the same paths.
-cd -- "$(dirname -- "$0")"
+# GitHub Actions provides GITHUB_WORKSPACE. For local builds, use the
+# directory the script was launched from.
+WORKSPACE="${GITHUB_WORKSPACE:-$PWD}"
+PROFILE_DIR="$WORKSPACE/profile"
+OUTPUT_DIR="$WORKSPACE/out"
 
-PROFILE_DIR="$(pwd)/profile"
-OUTPUT_DIR="$(pwd)/out"
+printf 'Workspace: %s\n' "$WORKSPACE"
+printf 'Profile:   %s\n' "$PROFILE_DIR"
+printf 'Output:    %s\n' "$OUTPUT_DIR"
 
 if [[ $EUID -ne 0 ]]; then
     echo "Run this script as root (for example: sudo ./build.sh)."
@@ -16,6 +18,11 @@ fi
 
 if ! command -v mkarchiso >/dev/null 2>&1; then
     echo "mkarchiso was not found. Install the archiso package first."
+    exit 1
+fi
+
+if [[ ! -d "$PROFILE_DIR" ]]; then
+    echo "Archiso profile directory not found: $PROFILE_DIR"
     exit 1
 fi
 

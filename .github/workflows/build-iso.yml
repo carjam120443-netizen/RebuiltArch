@@ -38,9 +38,17 @@ jobs:
           chmod +x ./build.sh
           ./build.sh
 
-      - name: Verify ISO
+      - name: Verify ISO size
+        shell: bash
         run: |
-          ls -lh ./out/*.iso
+          ISO="$(find ./out -maxdepth 1 -type f -name '*.iso' -print -quit)"
+          test -n "$ISO"
+          SIZE="$(stat -c '%s' "$ISO")"
+          echo "ISO size: $SIZE bytes"
+          if [ "$SIZE" -ge 2147483648 ]; then
+            echo "ERROR: ISO exceeds GitHub's 2 GiB release asset limit."
+            exit 1
+          fi
 
       - name: Upload ISO artifact
         uses: actions/upload-artifact@v4

@@ -17,4 +17,5 @@ bootmodes=('bios.syslinux' 'uefi.systemd-boot')
 file_permissions=(
   ["/etc/shadow"]="0:0:400"
   ["/usr/local/bin/rebuiltarch-fetch"]="0:0:755"
+  ["/root/customize_airootfs.sh"]="0:0:755"
 )

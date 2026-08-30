@@ -1,0 +1,8 @@
+[Desktop Entry]
+Type=Application
+Name=Install RebuiltArch
+Comment=Install RebuiltArch to your computer
+Exec=konsole --hold -e archinstall
+Icon=system-software-install
+Terminal=false
+Categories=System;Settings;

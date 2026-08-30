@@ -9,6 +9,8 @@ iso_application="RebuiltArch Live Environment"
 iso_version="$(date +%Y.%m.%d)"
 
 install_dir="arch"
+arch="x86_64"
+pacman_conf="pacman.conf"
 buildmodes=('iso')
 bootmodes=('bios.syslinux' 'uefi.systemd-boot')
 

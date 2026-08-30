@@ -19,9 +19,17 @@ jobs:
           pacman -Syu --noconfirm
           pacman -S --noconfirm archiso git
 
-      - name: Build ISO
+      - name: Verify workspace
         run: |
-          chmod +x build.sh
+          pwd
+          ls -la
+          test -f build.sh
+          test -f profile/profiledef.sh
+
+      - name: Build ISO
+        shell: bash
+        run: |
+          chmod +x ./build.sh
           ./build.sh
 
       - name: Upload ISO
@@ -29,3 +37,4 @@ jobs:
         with:
           name: rebuiltarch-iso
           path: out/*.iso
+          if-no-files-found: error

@@ -10,7 +10,7 @@ iso_version="$(date +%Y.%m.%d)"
 
 install_dir="arch"
 buildmodes=('iso')
-bootmodes=('bios.syslinux' 'uefi-x64.systemd-boot')
+bootmodes=('bios.syslinux' 'uefi.systemd-boot')
 
 file_permissions=(
   ["/etc/shadow"]="0:0:400"

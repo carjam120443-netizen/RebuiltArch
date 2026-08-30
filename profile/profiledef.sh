@@ -1,7 +1,6 @@
 #!/usr/bin/env bash
 
 # RebuiltArch Archiso profile definition
-# See: archiso profiledef.sh documentation
 
 iso_name="rebuiltarch"
 iso_label="REBUILTARCH"
@@ -13,7 +12,7 @@ install_dir="arch"
 buildmodes=('iso')
 bootmodes=('bios.syslinux' 'uefi-x64.systemd-boot')
 
-# Packages and files that should be copied with permissions preserved.
 file_permissions=(
   ["/etc/shadow"]="0:0:400"
+  ["/usr/local/bin/rebuiltarch-fetch"]="0:0:755"
 )

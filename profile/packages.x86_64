@@ -24,3 +24,6 @@ zsh
 bash
 archinstall
 arch-install-scripts
+syslinux
+mtools
+dosfstools
